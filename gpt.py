@@ -30,6 +30,7 @@ class SelfAttention(nn.Module):
 class TransformerBlock(nn.Module):
     def __init__(self, config):
         super().__init__()
+        assert (config.num_heads * config.head_size == config.num_embed), 'Configuration mismatch: invalid number of heads or head size'
         self.attention_heads = nn.ModuleList([SelfAttention(config) for _ in range(config.num_heads)])
         self.layer_norm1 = nn.LayerNorm(config.num_embed)
         self.layer_norm2 = nn.LayerNorm(config.num_embed)
