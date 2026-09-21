@@ -1,6 +1,6 @@
 # Homemade GPT from scratch
 
-A character/byte-level GPT language model built from scratch in PyTorch, implementing multi-head self-attention, transformer blocks, and a custom byte-pair encoding (BPE) tokenizer, trained on the text of *Alice in Wonderland*.
+A character/byte-level GPT language model built from scratch in PyTorch, implementing multi-head self-attention, transformer blocks, and a custom byte-pair encoding (BPE) tokenizer, trained on the text of *Alice in Wonderland*. The implementation involves a few deviations from the original transformer architecture introduced in ["Attention Is All You Need"](https://arxiv.org/pdf/1706.03762) paper, including decoder-only transformer, Pre-LN normalization, GELU activation in a feedforward block
 
 ## Features
 
@@ -43,7 +43,7 @@ The model is trained on *Alice in Wonderland* with a lightweight BPE vocabulary 
 
 ## Motivation
 
-Built as a learning exercise in order to dive deeper into how self-attention mechanism and transformers work. Initially, the project had used character-level tokenization, which was then replaced with `tiktoken` tools. They, however, ended up working poorly for our small dataset and serving as a bottleneck during an optimization. This was the reason why custom `Tokenizer` was built.  
+Built as a learning exercise in order to dive deeper into how self-attention mechanism and transformers work. Initially, the project had used character-level tokenization, which was then replaced with `tiktoken` tools. They, however, ended up working poorly for our small dataset and serving as a bottleneck during an optimization. This is why custom `Tokenizer` was built.  
 
 ## Notes
 

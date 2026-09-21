@@ -36,21 +36,24 @@ class TransformerBlock(nn.Module):
         self.layer_norm2 = nn.LayerNorm(config.num_embed)
         self.feed_forward = nn.Sequential(
             nn.Linear(config.num_embed, 4 * config.num_embed),
-            nn.ReLU(),
+            nn.GELU(), # modern versions use GELU instead of ReLU
             nn.Linear(4 * config.num_embed, config.num_embed)
         )
         self.proj = nn.Linear(config.num_embed, config.num_embed, bias=False)
+        self.dropout = nn.Dropout(0.1)
 
     def forward(self, x):
         x_resid = x
-        x = self.layer_norm1(x)
+        x = self.layer_norm1(x) # Pre-LN instead of Post-LN from "Attention Is All You Need"
         x = torch.cat([head(x) for head in self.attention_heads], dim=-1) # concat 4*(B, T, hs) on hs -> (B, T, C)
         x = self.proj(x)
+        x = self.dropout(x)
         x += x_resid
 
         x_resid = x
         x = self.layer_norm2(x)
         x = self.feed_forward(x)
+        x = self.dropout(x)
         x += x_resid
         return x # (B, T, C)
 
@@ -66,12 +69,14 @@ class GPT(nn.Module):
             TransformerBlock(config),
         )
         self.linear = nn.Linear(config.num_embed, config.vocab_size)
+        self.dropout = nn.Dropout(0.1)
 
     def forward(self, x, y=None):
         B, T = x.shape
         tok = self.tok_emb_table(x) # (B, T, C)
         pos = self.pos_emb_table(torch.arange(T, device=x.device)) # (T, C)
         out = tok + pos # (B, T, C)
+        out = self.dropout(out)
         out = self.transformer(out) # (B, T, C)
         logits = self.linear(out) # (B, T, vocab_size)
 
