@@ -39,7 +39,11 @@ class Tokenizer:
         tokens = list(text.encode('utf-8'))
         idx = 256
 
-        loop = tqdm(range(num_merges), total=num_merges, desc='Merging tokens')
+        if num_merges > 1:
+            loop = tqdm(range(num_merges), total=num_merges, desc='Merging tokens')
+        else:
+            loop = range(num_merges)
+
         for _ in loop:
 
             if len(tokens) < 2:
