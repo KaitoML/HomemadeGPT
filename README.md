@@ -48,3 +48,7 @@ Built as a learning exercise in order to dive deeper into how self-attention mec
 ## Notes
 
 The tokenizer's `encode` method was built with AI assistance; the BPE training/merge logic, the attention mechanism, transformer architecture, and training loop were implemented independently.
+
+## License
+
+This project is licensed under the MIT License.
