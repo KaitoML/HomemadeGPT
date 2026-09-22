@@ -34,10 +34,13 @@ class Tokenizer:
         return new_indices
 
     def train(self, text, num_merges=1000):
+        from tqdm.auto import tqdm
+
         tokens = list(text.encode('utf-8'))
         idx = 256
 
-        for _ in range(num_merges):
+        loop = tqdm(range(num_merges), total=num_merges, desc='Merging tokens')
+        for _ in loop:
 
             if len(tokens) < 2:
                 break
