@@ -90,6 +90,7 @@ class GPT(nn.Module):
 
         return logits, loss
 
+    @torch.no_grad()
     def generate(self, tokens, num_generated_tokens=100):
         # tokens.shape = B, T
 
