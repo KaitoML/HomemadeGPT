@@ -4,6 +4,7 @@ import torch
 @dataclass
 class ConfigGPT:
     context_length: int = 64
+    num_layers: int = 3
     num_embed: int = 16
     head_size: int = 4
     num_heads : int = 4
