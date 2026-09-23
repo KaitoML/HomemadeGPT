@@ -63,11 +63,7 @@ class GPT(nn.Module):
         self.config = config
         self.tok_emb_table = nn.Embedding(config.vocab_size, config.num_embed)
         self.pos_emb_table = nn.Embedding(config.context_length, config.num_embed)
-        self.transformer = nn.Sequential(
-            TransformerBlock(config),
-            TransformerBlock(config),
-            TransformerBlock(config),
-        )
+        self.transformer = nn.Sequential(*[TransformerBlock(config) for _ in range(config.num_layers)])
         self.linear = nn.Linear(config.num_embed, config.vocab_size)
         self.dropout = nn.Dropout(0.1)
 
