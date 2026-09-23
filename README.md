@@ -39,7 +39,7 @@ See `tests.ipynb` for the full pipeline: data preparation, tokenizer training, b
 
 ## Training
 
-The model is trained on *Alice in Wonderland* with a lightweight BPE vocabulary (mild compression — a small dataset and model don't benefit from aggressive token merging). Training tracks both train and validation loss over a fixed number of steps, plotted at the end for a quick over/underfitting check.
+The model is trained on *Alice in Wonderland* and a corpus of *Twitter conversations* with a lightweight BPE vocabulary (mild compression — a small dataset and model don't benefit from aggressive token merging). Training tracks both train and validation loss over a fixed number of steps, plotted at the end for a quick over/underfitting check.
 
 ## Motivation
 
